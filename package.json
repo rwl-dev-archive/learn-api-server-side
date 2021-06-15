@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "ntl dev"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@netlify/functions": "^0.7.2"
+  }
+}
