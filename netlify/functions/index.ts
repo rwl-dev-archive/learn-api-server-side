@@ -34,6 +34,10 @@ const data: ResponseBody["data"] = [{
   name: "あそまか といか",
   age: 24,
   description: "ある日突然思いついた謎の名前っぽいもの",
+}, {
+  name: "WhyK",
+  age: 24,
+  description: "私",
 }];
 
 const handler: Handler = async (event, context): Promise<APIResponse> => {
