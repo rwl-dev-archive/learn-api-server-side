@@ -1,15 +1,49 @@
-import { Handler } from '@netlify/functions';
+import { Handler } from "@netlify/functions";
+import { statusCode, StatusCodeNumber } from "../../utils/status";
 
-interface StatusMessage {
-  statusCode: number
-  body: string
+interface APIResponse {
+  statusCode: StatusCodeNumber;
+  body: string;
 }
 
-const handler: Handler = async (event, context): Promise<StatusMessage> => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ message: 'Hello, World!!'})
+interface ResponseBody {
+  data: {
+    name: string;
+    age: number;
+    description: string;
+  }[];
+}
+
+const response = <T extends {} | string>(
+  statusCode: StatusCodeNumber,
+  body: T,
+): APIResponse => {
+  if (typeof body === "string") {
+    return {
+      statusCode,
+      body,
+    };
   }
-}
+  return {
+    statusCode,
+    body: JSON.stringify(body),
+  };
+};
 
-export { handler }
+const data: ResponseBody["data"] = [{
+  name: "あそまか といか",
+  age: 24,
+  description: "ある日突然思いついた謎の名前っぽいもの",
+}];
+
+const handler: Handler = async (event, context): Promise<APIResponse> => {
+  if (!process.env.API_KEY) {
+    return response<string>(
+      statusCode.unauthorized,
+      `ERR!!! ${statusCode.unauthorized}`,
+    );
+  }
+  return response<ResponseBody>(statusCode.ok, { data });
+};
+
+export { handler };
