@@ -1,7 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "dev": "ntl dev"
+    "dev": "ntl dev",
+    "fmt": "deno fmt netlify/functions/index.ts"
   },
   "license": "MIT",
   "dependencies": {
