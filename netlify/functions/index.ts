@@ -41,7 +41,7 @@ const data: ResponseBody["data"] = [{
 }];
 
 const handler: Handler = async (event, context): Promise<APIResponse> => {
-  if (event.headers.API_KEY !== process.env.API_KEY) {
+  if (event.headers.api_key !== process.env.API_KEY) {
     return response<string>(
       statusCode.unauthorized,
       `ERR!!! ${statusCode.unauthorized}`,
